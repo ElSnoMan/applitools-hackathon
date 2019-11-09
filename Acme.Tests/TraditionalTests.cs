@@ -12,7 +12,7 @@ namespace Tests
         {
             Driver.Init();
             Pages.Init();
-            Driver.Goto("https://demo.applitools.com/hackathon.html");
+            Driver.Goto("https://demo.applitools.com/hackathonV2.html");
         }
 
         [TearDown]
@@ -34,7 +34,7 @@ namespace Tests
         {
             // Component test would be best here
             Pages.Login.Map.LoginButton.Click();
-            Assert.That(Pages.Login.Map.Alert("Both Username and Password must be present ").Displayed);
+            Assert.That(Pages.Login.Map.Alert("Please enter both username and password").Displayed);
         }
 
         [Test]
@@ -42,6 +42,7 @@ namespace Tests
         public void Only_username_shows_alert()
         {
             // Component test would be best here
+            // V2: You could do some nasty workarounds, but this is an example where a Component/Visual tests are better
             Pages.Login.Map.LoginButton.Click();
             Assert.That(Pages.Login.Map.Alert("Password must be present").Displayed);
         }
@@ -51,6 +52,7 @@ namespace Tests
         public void Only_password_shows_alert()
         {
             // Component test would be best here
+            // V2: You could do some nasty workarounds, but this is an example where a Component/Visual tests are better
             Pages.Login.Map.LoginButton.Click();
             Assert.That(Pages.Login.Map.Alert("Username must be present").Displayed);
         }

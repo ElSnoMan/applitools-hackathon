@@ -23,7 +23,7 @@ namespace Acme
 
     public class HomePageMap
     {
-        public IWebElement UsernameLabel => Driver.FindElement(By.Id("logged-user-name"));
+        public IWebElement UsernameLabel => Driver.FindElement(By.Id("logged-user-name-new"));
 
         public IWebElement AmountTableHeader => Driver.FindElement(By.Id("amount"));
 

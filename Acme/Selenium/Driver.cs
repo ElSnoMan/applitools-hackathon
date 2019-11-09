@@ -13,15 +13,21 @@ namespace Acme.Selenium
         public static IWebDriver _driver;
 
         [ThreadStatic]
+        public static Eyes _eyes;
+
+        [ThreadStatic]
         public static WebDriverWait _wait;
 
         public static void Init()
         {
             _driver = new ChromeDriver(Path.GetFullPath(@"../../../../" + "_drivers"));
+            _eyes = new Eyes(_driver, "Acme");
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
         public static IWebDriver Current => _driver ?? throw new Exception("_driver is null.");
+
+        public static Eyes Eyes => _eyes;
 
         public static WebDriverWait Wait => _wait;
 
@@ -32,7 +38,7 @@ namespace Acme.Selenium
 
         public static IWebElement FindElement(By by)
         {
-            return Current.FindElement(by);
+            return Wait.Until(drvr => drvr.FindElement(by));
         }
 
         public static IList<IWebElement> FindElements(By by)
