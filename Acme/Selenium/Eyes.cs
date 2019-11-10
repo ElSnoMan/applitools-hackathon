@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using OpenQA.Selenium;
 
 namespace Acme.Selenium
@@ -12,22 +11,35 @@ namespace Acme.Selenium
 
         public Eyes(IWebDriver driver, string appName)
         {
+            ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY");
             AppName = appName;
             _driver = driver;
             _eyes = new Applitools.Selenium.Eyes
             {
-                ApiKey = Environment.GetEnvironmentVariable("APPLITOOLS_API_KEY"),
-                AppName = appName
+                ApiKey = this.ApiKey,
+                AppName = this.AppName
             };
         }
+
+        public string ApiKey { get; set; }
 
         public string AppName { get; set; }
 
         public Applitools.Selenium.Eyes Current => _eyes;
 
-        public IWebDriver Open(string testName, Size viewportSize)
+        public IWebDriver Open(string testName)
         {
-            return Current.Open(_driver, AppName, testName, viewportSize);
+            return Current.Open(_driver, AppName, testName);
+        }
+
+        public void CheckWindow(string tag = null, bool? fully = null)
+        {
+            Current.CheckWindow(tag, fully);
+        }
+
+        public Applitools.TestResults Close()
+        {
+            return Current.Close();
         }
     }
 }

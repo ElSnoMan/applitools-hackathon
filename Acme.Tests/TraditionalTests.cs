@@ -2,23 +2,17 @@ using System.Linq;
 using NUnit.Framework;
 using Acme.Pages;
 using Acme.Selenium;
+using Acme;
 
 namespace Tests
 {
-    public class TraditionalTests
+    public class TraditionalTests : TestBase
     {
         [SetUp]
-        public void BeforeEach()
+        public override void BeforeEach()
         {
-            Driver.Init();
-            Pages.Init();
-            Driver.Goto("https://demo.applitools.com/hackathonV2.html");
-        }
-
-        [TearDown]
-        public void AfterEach()
-        {
-            Driver.Quit();
+            base.BeforeEach();
+            Driver.Goto(FW.Config.Environment.V2);
         }
 
         [Test, Ignore("Best done by Visual")]
@@ -32,7 +26,7 @@ namespace Tests
         [Category("data-driven")]
         public void No_username_or_password_shows_alert()
         {
-            // Component test would be best here
+            // Component or Visual test would be best here
             Pages.Login.Map.LoginButton.Click();
             Assert.That(Pages.Login.Map.Alert("Please enter both username and password").Displayed);
         }
@@ -41,8 +35,8 @@ namespace Tests
         [Category("data-driven")]
         public void Only_username_shows_alert()
         {
-            // Component test would be best here
             // V2: You could do some nasty workarounds, but this is an example where a Component/Visual tests are better
+            Pages.Login.Map.UsernameField.SendKeys("username");
             Pages.Login.Map.LoginButton.Click();
             Assert.That(Pages.Login.Map.Alert("Password must be present").Displayed);
         }
@@ -51,8 +45,8 @@ namespace Tests
         [Category("data-driven")]
         public void Only_password_shows_alert()
         {
-            // Component test would be best here
             // V2: You could do some nasty workarounds, but this is an example where a Component/Visual tests are better
+            Pages.Login.Map.PasswordField.SendKeys("password");
             Pages.Login.Map.LoginButton.Click();
             Assert.That(Pages.Login.Map.Alert("Username must be present").Displayed);
         }
@@ -61,8 +55,9 @@ namespace Tests
         [Category("data-driven")]
         public void User_can_login()
         {
+            // This is a narrow way to determine whether the user is logged in and viewing the right things
             Pages.Login.To("username", "password");
-            Assert.That(Driver.Wait.Until(drvr => Pages.Home.Map.UsernameLabel.Displayed));
+            Assert.That(Driver.Wait.Until(_ => Pages.Home.Map.UsernameLabel.Displayed));
         }
 
         [Test]
@@ -86,7 +81,7 @@ namespace Tests
         [Category("canvas")]
         public void Canvas_Chart_Test()
         {
-            // This would be done via Visual Test or, in my opinion, in the hands of users
+            // This would be done via Visual Test and then in the hands of users (kinda implied for everything)
         }
 
         [Test, Ignore("Better control of data and programming design to make things deterministic")]
@@ -95,6 +90,7 @@ namespace Tests
         {
             // This would be done via Visual Test
             // However, as a programmer or marketer, I would want better control of our data and campaigns
+            // Layout Regions really helped with this
         }
     }
 }

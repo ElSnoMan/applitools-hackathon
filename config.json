@@ -1,0 +1,16 @@
+{
+    "driver": {
+        "waitSeconds": 10
+    },
+
+    "applitools": {
+        "appName": "Acme"
+    },
+
+    "environment": {
+        "v1": "https://demo.applitools.com/hackathon.html",
+        "v1Home": "https://demo.applitools.com/hackathonApp.html",
+        "v2": "https://demo.applitools.com/hackathonV2.html",
+        "v2Home": "https://demo.applitools.com/hackathonAppV2.html"
+    }
+}

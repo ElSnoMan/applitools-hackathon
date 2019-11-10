@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Acme.Models;
 using Acme.Selenium;
 using OpenQA.Selenium;
@@ -24,6 +23,10 @@ namespace Acme
     public class HomePageMap
     {
         public IWebElement UsernameLabel => Driver.FindElement(By.Id("logged-user-name-new"));
+
+        public IWebElement CompareExpensesLink => Driver.FindElement(By.Id("showExpensesChart"));
+
+        public IWebElement ShowDataForNextYearButton => Driver.FindElement(By.Id("addDataset"));
 
         public IWebElement AmountTableHeader => Driver.FindElement(By.Id("amount"));
 

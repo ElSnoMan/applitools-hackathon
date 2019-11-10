@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -20,9 +19,9 @@ namespace Acme.Selenium
 
         public static void Init()
         {
-            _driver = new ChromeDriver(Path.GetFullPath(@"../../../../" + "_drivers"));
-            _eyes = new Eyes(_driver, "Acme");
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            _driver = new ChromeDriver(FW.WORKSPACE_DIRECTORY + "_drivers");
+            _eyes = new Eyes(_driver, FW.Config.Applitools.AppName);
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(FW.Config.Driver.WaitSeconds));
         }
 
         public static IWebDriver Current => _driver ?? throw new Exception("_driver is null.");
