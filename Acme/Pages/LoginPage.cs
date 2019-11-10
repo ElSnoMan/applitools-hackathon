@@ -22,10 +22,6 @@ namespace Acme.Pages
 
     public class LoginPageMap
     {
-        public IWebElement BigLogo => Driver.FindElement(By.CssSelector("a img[src*='logo-big']"));
-
-        public IWebElement LoginFormLabel => Driver.FindElement(By.XPath("//h4[contains(text(), 'Login Form')]"));
-
         public IWebElement Alert(string text) => Driver.FindElement(By.XPath($"//*[@role='alert' and text()='{text}']"));
 
         public IWebElement UsernameField => Driver.FindElement(By.Id("username"));
@@ -33,13 +29,5 @@ namespace Acme.Pages
         public IWebElement PasswordField => Driver.FindElement(By.Id("password"));
 
         public IWebElement LoginButton => Driver.FindElement(By.Id("log-in"));
-
-        public IWebElement RememberMeCheckbox => Driver.FindElement(By.CssSelector("input.form-check-input"));
-
-        public IWebElement TwitterIcon => Driver.FindElement(By.CssSelector("a img[src*='twitter']"));
-
-        public IWebElement FacebookIcon => Driver.FindElement(By.CssSelector("a img[src*='facebook']"));
-
-        public IWebElement LinkedInIcon => Driver.FindElement(By.CssSelector("a img[src*='linkedin']"));
     }
 }
